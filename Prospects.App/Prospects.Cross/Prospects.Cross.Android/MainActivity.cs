@@ -21,7 +21,7 @@ namespace Prospects.Cross.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            App.LocatorService = new LocatorService();
+            App.SetLocatorService(new LocatorService());
             LoadApplication(new App());
         }
     }

@@ -8,11 +8,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Prospects.Cross.Core.ViewModels;
+using Prospects.Cross.Infrastructure;
 
 namespace Prospects.Cross.Core.Services
 {
     public class ApiService : IApiService
     {
+         
         public IHttpClientService HttpClientService { get; set; }
         public IJsonService JsonService { get; set; }
 

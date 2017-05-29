@@ -19,7 +19,7 @@ namespace Prospects.Cross.Core.ViewModels
         #region commands
         public ICommand SelectCommand { get { return new RelayCommand(Select); } }
 
-        async private void Select()
+         private void Select()
         {
             //var main = App.LocatorService.Get<MainViewModel>();
             //main.SelectedPlace = this;

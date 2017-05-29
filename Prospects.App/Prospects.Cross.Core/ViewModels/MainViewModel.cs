@@ -26,11 +26,10 @@ namespace Prospects.Cross.Core.ViewModels
         public ProspectViewModel SelectedProspect { get; set; }
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
-        public IApiService ApiService { get; set; }
-        public MainViewModel()
-        //public MainViewModel(IApiService apiService)
+        public IApiService ApiService { get; set; } 
+        public MainViewModel(IApiService apiService)
         {
-            //ApiService = apiService;
+            ApiService = apiService;
             LoadMenuItems();
         }
         async public void LoadProspects()

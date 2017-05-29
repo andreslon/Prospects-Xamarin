@@ -14,8 +14,7 @@ namespace Prospects.Cross
     public partial class App : Application
     {
         public static MasterDetailPage MasterDetailPage { get; set; }
-        public static NavigationPage NavigationPage { get; set; }
-        public static ILocatorService LocatorService { get; set; }
+        public static NavigationPage NavigationPage { get; set; } 
 
         public App()
         {
@@ -30,10 +29,16 @@ namespace Prospects.Cross
             MasterDetailPage.Detail = NavigationPage;
             Current.MainPage = MasterDetailPage;
         }
+
+        public static void SetLocatorService(ILocatorService locatorService)
+        {
+            DependencyContainer.LocatorService = locatorService;
+        }
+
         public static void SetSplashPage()
         {
             var page = new SplashPage();
-            page.BindingContext = LocatorService.Get<MainViewModel>();
+            page.BindingContext = DependencyContainer.LocatorService.Get<MainViewModel>();
             Current.MainPage = page;
         }
         public static void SetLoginPage()
