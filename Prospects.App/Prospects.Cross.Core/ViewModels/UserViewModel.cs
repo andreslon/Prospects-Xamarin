@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Prospects.Cross.Infrastructure.Models.Responses;
 
 namespace Prospects.Cross.Core.ViewModels
 {
@@ -87,9 +88,14 @@ namespace Prospects.Cross.Core.ViewModels
                         {
                             if (apiResponse.Response.success)
                             {
-                                this.Token = apiResponse.Response.authToken;
                                 IsBusy = false;
-                                NavigationService.Navigate(Infrastructure.Enumerations.PageTypes.Home);
+                                if (HoldSession)
+                                {
+                                    apiResponse.Response.holdSession = true;
+                                    await FileService.SaveAsync("UserData", apiResponse.Response);
+                                }
+                                FillUserData(apiResponse.Response);
+                                await NavigationService.Navigate(Infrastructure.Enumerations.PageTypes.Home);
                             }
                         }
                         else
@@ -114,6 +120,13 @@ namespace Prospects.Cross.Core.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public void FillUserData(AuthResponse response)
+        {
+            this.Token = response.authToken;
+            this.Email = response.email;
+            this.HoldSession = response.holdSession;
         }
         #endregion
 
@@ -157,6 +170,14 @@ namespace Prospects.Cross.Core.ViewModels
                 return false;
             }
 
+        }
+
+        internal void Clear()
+        {
+            this.Token = string.Empty; 
+            this.Email = string.Empty;
+            this.HoldSession = false;
+            this.Password = string.Empty; 
         }
     }
 }

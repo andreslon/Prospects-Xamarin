@@ -12,7 +12,10 @@
             </Grid.ColumnDefinitions>
             <StackLayout  Spacing="1"> 
                 <StackLayout >
-                    <Label Text="Status Code" FontSize="Small"></Label>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Status Code" FontSize="Small"></Label>
+                        <Label HorizontalOptions="Center"   Text="{Binding SelectedProspect.StatusCd, Converter={StaticResource StatusToStringConverter}}}"></Label>
+                    </StackLayout>
                     <Slider Value="{Binding SelectedProspect.StatusCd}" Minimum="0" Maximum="4"></Slider>
                 </StackLayout>
                 <StackLayout >

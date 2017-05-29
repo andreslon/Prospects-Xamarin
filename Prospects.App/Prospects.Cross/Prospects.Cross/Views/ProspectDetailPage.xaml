@@ -14,14 +14,8 @@
             <StackLayout  Spacing="1">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Status: "  FontAttributes="Bold"></Label>
-                    <Label HorizontalOptions="Center" FontSize="Micro" Text="{Binding SelectedProspect.StatusCd, Converter={StaticResource StatusToStringConverter}}}"></Label>
-                    <Frame 
-                                               CornerRadius="5" 
-                                                Padding="0" 
-                                                HeightRequest="15"
-                                                WidthRequest="15"
-                                                HasShadow="False"
-                                                BackgroundColor="{Binding SelectedProspect.StatusCd, Converter={StaticResource StatusToColorConverter}}}"></Frame>
+                    <Label HorizontalOptions="Center" TextColor="{Binding SelectedProspect.StatusCd, Converter={StaticResource StatusToColorConverter}}}"  
+                           Text="{Binding SelectedProspect.StatusCd, Converter={StaticResource StatusToStringConverter}}}"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="FullName: "  FontAttributes="Bold"></Label>

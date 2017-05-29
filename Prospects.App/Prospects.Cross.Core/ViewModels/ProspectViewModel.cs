@@ -66,8 +66,14 @@ namespace Prospects.Cross.Core.ViewModels
         public string SchProspectIdentification { get; set; }
         public string Address { get; set; }
         public string CreatedAt { get; set; }
-        public string UpdatedAt { get; set; }
-        public int StatusCd { get; set; }
+        public string UpdatedAt { get; set; } 
+        private int _StatusCd; 
+        public int StatusCd
+        {
+            get { return _StatusCd; }
+            set { Set(ref _StatusCd, value); }
+        }
+
         public string ZoneCode { get; set; }
         public string NeighborhoodCode { get; set; }
         public string CityCode { get; set; }

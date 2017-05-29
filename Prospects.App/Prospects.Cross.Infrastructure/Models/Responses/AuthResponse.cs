@@ -8,6 +8,8 @@ namespace Prospects.Cross.Infrastructure.Models.Responses
 {
     public class AuthResponse
     {
+        public bool holdSession { get; set; }
+
         public bool success { get; set; }
         public string authToken { get; set; }
         public string email { get; set; }

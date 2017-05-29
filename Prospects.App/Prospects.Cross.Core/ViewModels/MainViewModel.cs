@@ -11,31 +11,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using Prospects.Cross.Infrastructure.Models.Responses;
 
 namespace Prospects.Cross.Core.ViewModels
 {
     public class MainViewModel : ViewModelBase
-    { 
+    {
 
-        private UserViewModel user; 
+        private UserViewModel user;
         public UserViewModel User
         {
             get { return user; }
             set { Set(ref user, value); }
-        } 
+        }
         private List<ProspectViewModel> prospects;
         public List<ProspectViewModel> Prospects
         {
             get { return prospects; }
             set { Set(ref prospects, value); }
-        } 
+        }
         public ProspectViewModel SelectedProspect { get; set; }
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
         public IApiService ApiService { get; set; }
         public IFileService FileService { get; set; }
         public INavigationService NavigationService { get; set; }
-        public IDialogService DialogService { get; set; } 
+        public IDialogService DialogService { get; set; }
         private bool isBusy;
         public bool IsBusy
         {
@@ -115,10 +116,11 @@ namespace Prospects.Cross.Core.ViewModels
                 IsBusy = false;
                 await DialogService.ShowMessage(ex.Message, "Error");
             }
-            finally {
+            finally
+            {
                 IsBusy = false;
             }
-          
+
         }
 
         private void LoadMenuItems()
@@ -149,20 +151,20 @@ namespace Prospects.Cross.Core.ViewModels
             try
             {
                 ErrorStatus = false;
-                this.StatusMessage = LocalizedStrings.Get("strLoadingData");
-                await Task.Delay(10000); 
+                this.StatusMessage = LocalizedStrings.Get("strLoadingData"); 
                 if (await FileService.Exist("UserData"))
                 {
                     this.StatusMessage = LocalizedStrings.Get("strLoadingUSer");
-                    //var MonitorData = await FileService.LoadAsync<MonitorResponse>("MonitorData");
-                    //if (MonitorData != null)
-                    //{
-
-                    //}
-                    //else
-                    //{
-                    //     NavigateTo(PageTypes.Login);
-                    //}
+                    var UserData = await FileService.LoadAsync<AuthResponse>("UserData");
+                    if (UserData != null)
+                    {
+                        User.FillUserData(UserData);
+                        NavigateTo(PageTypes.Home);
+                    }
+                    else
+                    {
+                        NavigateTo(PageTypes.Login);
+                    }
                 }
                 else
                 {
@@ -180,11 +182,8 @@ namespace Prospects.Cross.Core.ViewModels
             switch (pageType)
             {
                 case PageTypes.SignOut:
-                    //MonitorViewModel.ClearMonitor();
-                    //MonitorViewModel.HoldSession = false;
-                    //await fileService.Delete("AuthToken");
-                    //await fileService.Delete("MonitorData");
-                    //await fileService.Delete("RoutesData");
+                    User.Clear(); 
+                    await FileService.Delete("UserData"); 
                     await NavigationService.Navigate(PageTypes.Login);
                     break;
                 case PageTypes.Home:

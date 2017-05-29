@@ -7,7 +7,7 @@
         <Grid>
             <Grid Padding="{StaticResource pagePadding}">
                 <StackLayout VerticalOptions="Center">
-                    <Image Source="icon" HeightRequest="180">
+                    <Image Source="logo" HeightRequest="150">
                     </Image>
                 </StackLayout>
                 <StackLayout VerticalOptions="End">

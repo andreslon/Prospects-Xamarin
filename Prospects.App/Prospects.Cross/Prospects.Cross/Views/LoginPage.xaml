@@ -12,7 +12,7 @@
 
                     <StackLayout Padding="0" Spacing="0">
                         <StackLayout   Padding="20,30,20,0"   >
-                            <Image  Source="logo_satrack" HeightRequest="200"  ></Image>
+                            <Image  Source="logo" HeightRequest="120"  ></Image>
                         </StackLayout>
 
                         <Grid  Padding="20,0,20,20">
@@ -42,7 +42,7 @@
                                 </Grid>
 
                                 <Grid Padding="0,10" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Image  Source="powered_Satrack" HeightRequest="20"   ></Image>
+                                    <Label HorizontalOptions="Center" Text="Powered by Andreslon" TextColor="Gray" FontAttributes="Bold"></Label>
                                 </Grid>
                             </StackLayout>
                         </Grid>

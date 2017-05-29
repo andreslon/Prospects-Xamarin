@@ -20,16 +20,12 @@ namespace Prospects.Cross.Core.ViewModels
         {
             switch (Type)
             {
-                case PageTypes.Splash:
-                    break;
-                case PageTypes.Login:
-                    break;
                 case PageTypes.SignOut:
+                    var main = DependencyContainer.LocatorService.Get<MainViewModel>();
+                    main.NavigateTo(Type);
                     break;
                 case PageTypes.Home:
-                    break;
-                case PageTypes.EditProspect:
-                    break; 
+                    return;
             }
         }
     }
