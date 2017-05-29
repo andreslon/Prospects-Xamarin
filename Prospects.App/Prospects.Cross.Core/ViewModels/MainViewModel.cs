@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace Prospects.Cross.Core.ViewModels
 {
@@ -17,6 +19,8 @@ namespace Prospects.Cross.Core.ViewModels
         public UserViewModel User { get; set; }
 
         private List<ProspectViewModel> prospects;
+
+
         public List<ProspectViewModel> Prospects
         {
             get { return prospects; }
@@ -26,10 +30,30 @@ namespace Prospects.Cross.Core.ViewModels
         public ProspectViewModel SelectedProspect { get; set; }
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
-        public IApiService ApiService { get; set; } 
-        public MainViewModel(IApiService apiService)
+        public IApiService ApiService { get; set; }
+        public IFileService FileService { get; set; }
+        public INavigationService NavigationService { get; set; }
+
+        private bool _ErrorStatus;
+        public bool ErrorStatus
+        {
+            get { return _ErrorStatus; }
+            set { Set(ref _ErrorStatus, value); }
+        }
+
+        private string _StatusMessage;
+
+        public string StatusMessage
+        {
+            get { return _StatusMessage; }
+            set { Set(ref _StatusMessage, value); }
+        }
+
+        public MainViewModel(IApiService apiService, IFileService fileService, INavigationService navigationService)
         {
             ApiService = apiService;
+            FileService = fileService;
+            NavigationService = navigationService;
             LoadMenuItems();
         }
         async public void LoadProspects()
@@ -91,5 +115,64 @@ namespace Prospects.Cross.Core.ViewModels
             });
 
         }
+
+        public ICommand RetryCommand { get { return new RelayCommand(Retry); } }
+        private void Retry()
+        {
+            Start();
+        }
+        async public void Start()
+        {
+            try
+            {
+                ErrorStatus = false;
+                this.StatusMessage = LocalizedStrings.Get("strLoadingData");
+                await Task.Delay(10000); 
+                if (await FileService.Exist("UserData"))
+                {
+                    this.StatusMessage = LocalizedStrings.Get("strLoadingUSer");
+                    //var MonitorData = await FileService.LoadAsync<MonitorResponse>("MonitorData");
+                    //if (MonitorData != null)
+                    //{
+
+                    //}
+                    //else
+                    //{
+                    //     NavigateTo(PageTypes.Login);
+                    //}
+                }
+                else
+                {
+                    NavigateTo(PageTypes.Login);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorStatus = true;
+                this.StatusMessage = ex.Message;
+            }
+        }
+        async public void NavigateTo(PageTypes pageType)
+        {
+            switch (pageType)
+            {
+                case PageTypes.SignOut:
+                    //MonitorViewModel.ClearMonitor();
+                    //MonitorViewModel.HoldSession = false;
+                    //await fileService.Delete("AuthToken");
+                    //await fileService.Delete("MonitorData");
+                    //await fileService.Delete("RoutesData");
+                    await NavigationService.Navigate(PageTypes.Login);
+                    break;
+                case PageTypes.Home:
+                    await NavigationService.Navigate(pageType);
+                    break;
+                default:
+                    await NavigationService.Navigate(pageType);
+                    break;
+            }
+
+        }
+
     }
 }

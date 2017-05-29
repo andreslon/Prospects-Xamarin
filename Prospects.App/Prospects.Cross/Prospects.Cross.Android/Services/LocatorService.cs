@@ -2,8 +2,7 @@
 using Microsoft.Practices.ServiceLocation;
 using Prospects.Cross.Android.Services;
 using Prospects.Cross.Core.Services;
-using Prospects.Cross.Core.ViewModels;
-using Prospects.Cross.Droid.Services;
+using Prospects.Cross.Core.ViewModels; 
 using Prospects.Cross.Infrastructure.Interfaces;
 using Prospects.Cross.Infrastructure.Services;
 using Prospects.Cross.Services;

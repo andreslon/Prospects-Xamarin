@@ -1,10 +1,77 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prospects.Cross.App">
-	<Application.Resources>
+<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:Prospects.Cross.Converters;assembly=Prospects.Cross" x:Class="Prospects.Cross.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Converters-->
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:VoidToVisibilityConverter x:Key="VoidToVisibilityConverter" />
+            <converters:StatusToStringConverter x:Key="StatusToStringConverter" />
+            <!--Colors-->
 
-		<!-- Application resource dictionary -->
-
-	</Application.Resources>
+            <!--<item name="colorPrimary">#1abc9c</item> 
+    <item name="colorPrimaryDark">#16a085</item>-->
+            
+            <Color x:Key="ThemeColor">#1abc9c</Color>
+            <Color x:Key="ThemeSecondColor">#2980b9</Color>
+            <Color x:Key="MenuBackgroundColor">#f6f6f6</Color>
+            <Color x:Key="BackgroundColor">#f8f8f8</Color>
+            <Color x:Key="BarTextColor">#755500</Color>
+            <Color x:Key="ValidationColor">#F44336</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="AlternativeFontColor">#404243</Color>
+            <Color x:Key="MessageFontColor">#4A81F0</Color>
+            <Color x:Key="GrayColor">#DDDDDD</Color>
+            <Color x:Key="BorderLineColor">#CCCCCC</Color>
+            <!--Variable Colors-->
+            <Color x:Key="RedVariable">#F44336</Color>
+            <Color x:Key="YellowVariable">#FFC107</Color>
+            <Color x:Key="GreenVariable">#4CAF50</Color>
+            <Color x:Key="BorderColor">#c0bbb6</Color>
+            <OnPlatform x:Key="pagePadding" x:TypeArguments="Thickness" iOS="20" Android="20" WinPhone="30" />
+            <OnPlatform x:Key="pageSidePadding" x:TypeArguments="Thickness" iOS="15,0" Android="15,0" WinPhone="15,0" />
+            <OnPlatform x:Key="contentPadding" x:TypeArguments="Thickness" iOS="10" Android="10" WinPhone="10" />
+            <OnPlatform x:Key="headerPadding" x:TypeArguments="Thickness" iOS="20" Android="20" WinPhone="20" />
+            <!--Fonts-->
+            <OnPlatform x:Key="font10" x:TypeArguments="x:Double" iOS="10" Android="10" WinPhone="16" />
+            <OnPlatform x:Key="font11" x:TypeArguments="x:Double" iOS="11" Android="11" WinPhone="17" />
+            <OnPlatform x:Key="font12" x:TypeArguments="x:Double" iOS="12" Android="12" WinPhone="18" />
+            <OnPlatform x:Key="font13" x:TypeArguments="x:Double" iOS="13" Android="13" WinPhone="19" />
+            <OnPlatform x:Key="font14" x:TypeArguments="x:Double" iOS="14" Android="14" WinPhone="20" />
+            <OnPlatform x:Key="font15" x:TypeArguments="x:Double" iOS="15" Android="15" WinPhone="21" />
+            <OnPlatform x:Key="font16" x:TypeArguments="x:Double" iOS="16" Android="16" WinPhone="22" />
+            <OnPlatform x:Key="font17" x:TypeArguments="x:Double" iOS="17" Android="17" WinPhone="23" />
+            <OnPlatform x:Key="font18" x:TypeArguments="x:Double" iOS="18" Android="18" WinPhone="24" />
+            <OnPlatform x:Key="font19" x:TypeArguments="x:Double" iOS="19" Android="19" WinPhone="25" />
+            <OnPlatform x:Key="font20" x:TypeArguments="x:Double" iOS="20" Android="20" WinPhone="26" />
+            <OnPlatform x:Key="font30" x:TypeArguments="x:Double" iOS="30" Android="30" WinPhone="36" />
+            <OnPlatform x:Key="font35" x:TypeArguments="x:Double" iOS="35" Android="35" WinPhone="41" />
+            <OnPlatform x:Key="font40" x:TypeArguments="x:Double" iOS="40" Android="40" WinPhone="46" />
+            <OnPlatform x:Key="font62" x:TypeArguments="x:Double" iOS="62" Android="62" WinPhone="68" />
+            <Style x:Key="InternalViewStyle" TargetType="ContentView">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+                <Setter Property="VerticalOptions" Value="Fill" />
+                <Setter Property="Padding" Value="7">
+                </Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="ContentView">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}" />
+                <Setter Property="Padding" Value="1,0,1,2">
+                </Setter>
+            </Style>
+            <Style x:Key="ListViewTitle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="FontSize" Value="{StaticResource font18}" />
+            </Style>
+            <Style x:Key="ListViewElement" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="FontSize" Value="{StaticResource font16}" />
+            </Style>
+            <Style x:Key="RoutePagetitleLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource font10}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

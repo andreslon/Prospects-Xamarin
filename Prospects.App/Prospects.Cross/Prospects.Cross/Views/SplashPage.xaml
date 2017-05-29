@@ -1,10 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prospects.Cross.Views.SplashPage">
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:controls="clr-namespace:Prospects.Cross.Controls;assembly=Prospects.Cross" 
+    BackgroundColor="{StaticResource BackgroundColor}" x:Class="Prospects.Cross.Views.SplashPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
+        <Grid>
+            <Grid Padding="{StaticResource pagePadding}">
+                <StackLayout VerticalOptions="Center">
+                    <Image Source="icon" HeightRequest="180">
+                    </Image>
+                </StackLayout>
+                <StackLayout VerticalOptions="End">
+                    <controls:ExtendedButton Command="{Binding RetryCommand}" IsVisible="{Binding ErrorStatus}" BackgroundColor="{StaticResource ThemeColor}" TextColor="{StaticResource WhiteColor}" Text="Reintentar" />
+                    <ActivityIndicator Color="{StaticResource ThemeColor}" IsVisible="{Binding ErrorStatus, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" IsRunning="true" />
+                    <Frame HasShadow="False" Padding="5" HorizontalOptions="Center" BackgroundColor="{StaticResource BackgroundColor}">
+                        <Label HorizontalOptions="Center" Text="{Binding StatusMessage}" TextColor="{StaticResource ThemeColor}" />
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
