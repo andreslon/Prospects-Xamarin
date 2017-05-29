@@ -1,10 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Prospects.Cross.Controls;assembly=Prospects.Cross"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="Prospects"
              x:Class="Prospects.Cross.Views.ProspectsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
-    </ContentPage.Content>
+    <ScrollView>
+        <Grid >
+            <ActivityIndicator Color="{StaticResource ThemeColor}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" IsRunning="true" />
+
+            <controls:ExtendedListView     
+                IsVisible="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"
+                IsSelectionEnabled="False"
+                HasUnevenRows="True"
+                SeparatorVisibility="None"
+                ItemsSource="{Binding Prospects,Mode=TwoWay}">
+                <controls:ExtendedListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="{StaticResource ItemPadding}">
+                                <Frame Padding="5">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer  Command="{Binding SelectCommand}" />
+                                    </Frame.GestureRecognizers>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout  Spacing="1">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding FullName}" FontSize="Medium" LineBreakMode="TailTruncation" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Identification: "  FontAttributes="Bold"></Label>
+                                                <Label Text="{Binding SchProspectIdentification}"  LineBreakMode="TailTruncation" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Telephone: "  FontAttributes="Bold"></Label>
+                                                <Label Text="{Binding Telephone}"   LineBreakMode="TailTruncation" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout  Spacing="1" Grid.Column="1" VerticalOptions="CenterAndExpand" >
+                                            <Label HorizontalOptions="Center" FontSize="Micro" Text="{Binding StatusCd, Converter={StaticResource StatusToStringConverter}}}"></Label>
+                                            <StackLayout  HeightRequest="20"   WidthRequest="20"
+                                                          VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                                <Frame 
+                                                CornerRadius="10" 
+                                                HeightRequest="20" 
+                                                WidthRequest="20"
+                                                Padding="0" 
+                                                HasShadow="False"
+                                                BackgroundColor="{Binding StatusCd, Converter={StaticResource StatusToColorConverter}}}"></Frame>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Grid>
+
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:ExtendedListView.ItemTemplate>
+            </controls:ExtendedListView>
+        </Grid>
+    </ScrollView>
 </ContentPage>

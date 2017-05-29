@@ -1,10 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Prospects.Cross.Controls;assembly=Prospects.Cross"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{Binding SelectedProspect.FullName}"
              x:Class="Prospects.Cross.Views.ProspectDetailPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
-    </ContentPage.Content>
+    <ScrollView > 
+        <Grid Padding="{StaticResource pagePadding}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout  Spacing="1">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Status: "  FontAttributes="Bold"></Label>
+                    <Label HorizontalOptions="Center" FontSize="Micro" Text="{Binding SelectedProspect.StatusCd, Converter={StaticResource StatusToStringConverter}}}"></Label>
+                    <Frame 
+                                               CornerRadius="5" 
+                                                Padding="0" 
+                                                HeightRequest="15"
+                                                WidthRequest="15"
+                                                HasShadow="False"
+                                                BackgroundColor="{Binding SelectedProspect.StatusCd, Converter={StaticResource StatusToColorConverter}}}"></Frame>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="FullName: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.FullName}" FontSize="Medium" LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Name: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Name}" FontSize="Medium" LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Surname: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Surname}" FontSize="Medium" LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Identification: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.SchProspectIdentification}"  LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Telephone: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Telephone}"   LineBreakMode="TailTruncation" />
+                </StackLayout> 
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Address: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Address}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="CreatedAt: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.CreatedAt}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="UpdatedAt: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.UpdatedAt}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="ZoneCode: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.ZoneCode}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="NeighborhoodCode: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.NeighborhoodCode}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="CityCode: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.CityCode}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="SectionCode: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.SectionCode}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="RoleId: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.RoleId}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Observation: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Observation}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Disable: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Disable}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Visited: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Visited}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Callcenter: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Callcenter}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Telephone: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.Telephone}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="AcceptSearch: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.AcceptSearch}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="CampaignCode: "  FontAttributes="Bold"></Label>
+                    <Label Text="{Binding SelectedProspect.CampaignCode}"   LineBreakMode="TailTruncation" />
+                </StackLayout>
+            </StackLayout> 
+        </Grid>
+    </ScrollView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_action_border_color" Text="Edit" Command="{Binding SelectedProspect.EditCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
 </ContentPage>

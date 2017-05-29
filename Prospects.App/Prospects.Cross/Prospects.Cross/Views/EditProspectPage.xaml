@@ -1,10 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Edit Prospect"
+             xmlns:controls="clr-namespace:Prospects.Cross.Controls;assembly=Prospects.Cross"
              x:Class="Prospects.Cross.Views.EditProspectPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
-    </ContentPage.Content>
+    <ScrollView >
+        <Grid Padding="{StaticResource pagePadding}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout  Spacing="1"> 
+                <StackLayout >
+                    <Label Text="Status Code" FontSize="Small"></Label>
+                    <Slider Value="{Binding SelectedProspect.StatusCd}" Minimum="0" Maximum="4"></Slider>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Name" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.Name}" Placeholder="Name"></Entry>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Surname" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.Surname}" Placeholder="Surname"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Identification" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.SchProspectIdentification}" Placeholder="Identification"></Entry>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Telephone" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.Telephone}" Placeholder="Telephone"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Address" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.Address}" Placeholder="Address"></Entry>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Created At" FontSize="Small"></Label>
+                    <DatePicker Date="{Binding SelectedProspect.CreatedAt}"></DatePicker>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Updated At" FontSize="Small"></Label>
+                    <DatePicker Date="{Binding SelectedProspect.UpdatedAt}"></DatePicker>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Zone Code" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.ZoneCode}" Placeholder="Zone Code"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Neighborhood Code" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.NeighborhoodCode}" Placeholder="Neighborhood Code"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="City Code" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.CityCode}" Placeholder="City Code"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Section Code" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.SectionCode}" Placeholder="Section Code"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Role Id" FontSize="Small"></Label>
+                    <Entry Keyboard="Numeric" Text="{Binding SelectedProspect.RoleId}" Placeholder="RoleId"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Observation" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.Observation}" Placeholder="Observation"></Entry> 
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Disable" FontSize="Small"></Label>
+                    <controls:ExtendedCheck  Checked="{Binding SelectedProspect.Disable}"></controls:ExtendedCheck>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Visited" FontSize="Small"></Label>
+                    <controls:ExtendedCheck  Checked="{Binding SelectedProspect.Visited}"></controls:ExtendedCheck>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Callcenter" FontSize="Small"></Label>
+                    <controls:ExtendedCheck  Checked="{Binding SelectedProspect.Callcenter}"></controls:ExtendedCheck>
+                </StackLayout> 
+                <StackLayout >
+                    <Label Text="Accept Search" FontSize="Small"></Label>
+                    <controls:ExtendedCheck  Checked="{Binding SelectedProspect.AcceptSearch}"></controls:ExtendedCheck>
+                </StackLayout>
+                <StackLayout >
+                    <Label Text="Campaign Code" FontSize="Small"></Label>
+                    <Entry Text="{Binding SelectedProspect.CampaignCode}" Placeholder="CampaignCode"></Entry> 
+                </StackLayout>
+
+                <Grid Padding="0,10" >
+                    <controls:ExtendedButton  Command="{Binding SelectedProspect.SaveCommand}"
+                                                              IsVisible="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"
+                                                              BackgroundColor="{StaticResource ThemeColor}"
+                                                              TextColor="{StaticResource WhiteColor}"
+                                                              Text="Save"></controls:ExtendedButton>
+                    <ActivityIndicator Color="{StaticResource ThemeColor}" IsVisible="{Binding IsBusy}" IsRunning="true" />
+                </Grid>
+
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

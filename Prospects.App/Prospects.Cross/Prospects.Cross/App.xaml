@@ -6,13 +6,14 @@
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:VoidToVisibilityConverter x:Key="VoidToVisibilityConverter" />
             <converters:StatusToStringConverter x:Key="StatusToStringConverter" />
+            <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
             <!--Colors-->
 
             <!--<item name="colorPrimary">#1abc9c</item> 
     <item name="colorPrimaryDark">#16a085</item>-->
             
             <Color x:Key="ThemeColor">#1abc9c</Color>
-            <Color x:Key="ThemeSecondColor">#2980b9</Color>
+            <Color x:Key="ThemeSecondColor">#16a085</Color>
             <Color x:Key="MenuBackgroundColor">#f6f6f6</Color>
             <Color x:Key="BackgroundColor">#f8f8f8</Color>
             <Color x:Key="BarTextColor">#755500</Color>
@@ -32,6 +33,7 @@
             <OnPlatform x:Key="pageSidePadding" x:TypeArguments="Thickness" iOS="15,0" Android="15,0" WinPhone="15,0" />
             <OnPlatform x:Key="contentPadding" x:TypeArguments="Thickness" iOS="10" Android="10" WinPhone="10" />
             <OnPlatform x:Key="headerPadding" x:TypeArguments="Thickness" iOS="20" Android="20" WinPhone="20" />
+            <OnPlatform x:Key="ItemPadding" x:TypeArguments="Thickness"  iOS="10,5,10,5" Android="10,5,10,5" WinPhone="10,5,10,5" />
             <!--Fonts-->
             <OnPlatform x:Key="font10" x:TypeArguments="x:Double" iOS="10" Android="10" WinPhone="16" />
             <OnPlatform x:Key="font11" x:TypeArguments="x:Double" iOS="11" Android="11" WinPhone="17" />

@@ -1,11 +1,83 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Menu"
+             Title="Menu" 
+             BackgroundColor="{StaticResource MenuBackgroundColor}"
+             xmlns:controls="clr-namespace:Prospects.Cross.Controls;assembly=Prospects.Cross"
              x:Class="Prospects.Cross.Views.MenuPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
+    <ContentPage.Content >
+        <Grid
+    x:Name="LayoutRoot"
+    RowSpacing ="0"
+    VerticalOptions="FillAndExpand"
+    HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid
+        RowSpacing ="0"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+                <controls:ExtendedListView
+          BackgroundColor="{StaticResource MenuBackgroundColor}"
+          IsSelectionEnabled="False"
+          HasUnevenRows="True"
+          SeparatorVisibility="None"
+          x:Name="lstMenu"
+          ItemsSource="{Binding MenuItems}">
+                    <controls:ExtendedListView.Header>
+                        <Grid  RowSpacing ="0"  ColumnSpacing="0" Padding="0">
+                            <Grid BackgroundColor="{StaticResource ThemeSecondColor}" RowSpacing ="0"  ColumnSpacing="0"  Padding="0">
+                                <StackLayout  Spacing="0" Padding="{StaticResource headerPadding}">
+                                    <StackLayout Orientation="Horizontal"  HorizontalOptions="Start" Padding="0,10">
+                                        <Grid HorizontalOptions="Start" VerticalOptions="End"  >
+                                            <Image Source="logo_satrack_menu"  HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="50" />
+                                        </Grid>
+                                    </StackLayout>
+                                    <StackLayout Padding="0,5,0,0" Spacing="2">
+                                        <Label x:Name="lblHeaderEmail"  FontSize="{StaticResource font16}" TextColor="{StaticResource WhiteColor}" LineBreakMode="TailTruncation" ></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </Grid>
+                    </controls:ExtendedListView.Header>
+
+                    <controls:ExtendedListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="20,15" ColumnSpacing="15" VerticalOptions="Center" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image  WidthRequest="25" HeightRequest="25"
+                       Source="{Binding Icon}" />
+                                    <Grid
+                    VerticalOptions="Center"
+                    Grid.Column="1" >
+                                        <Label
+                      Text="{Binding Name}"
+                      TextColor="{StaticResource BlackColor}" />
+                                    </Grid>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:ExtendedListView.ItemTemplate>
+                </controls:ExtendedListView>
+            </Grid>
+
+
+
+
+            <BoxView x:Name="borderMenu" WidthRequest="1"
+             HorizontalOptions="End"
+             VerticalOptions="FillAndExpand"
+             Color="{StaticResource BorderColor}" />
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

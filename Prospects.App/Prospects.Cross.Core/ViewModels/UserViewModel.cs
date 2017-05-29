@@ -30,10 +30,11 @@ namespace Prospects.Cross.Core.ViewModels
             ApiService = apiService;
             ToastService = toastService;
             NavigationService = navigationService;
+
+
         }
         #region attributes 
         private bool isBusy;
-
         public bool IsBusy
         {
             get { return isBusy; }
@@ -69,6 +70,11 @@ namespace Prospects.Cross.Core.ViewModels
 
             try
             {
+#if DEBUG
+                this.Email = "directo@directo.com";
+                this.Password = "directo123";
+#endif
+
                 IsBusy = true;
                 var main = DependencyContainer.LocatorService.Get<MainViewModel>();
                 Validate();
@@ -82,22 +88,26 @@ namespace Prospects.Cross.Core.ViewModels
                             if (apiResponse.Response.success)
                             {
                                 this.Token = apiResponse.Response.authToken;
-                                await NavigationService.Navigate(Infrastructure.Enumerations.PageTypes.Home);
+                                IsBusy = false;
+                                NavigationService.Navigate(Infrastructure.Enumerations.PageTypes.Home);
                             }
                         }
                         else
                         {
+                            IsBusy = false;
                             await DialogService.ShowMessage(LocalizedStrings.Get("strUserIncorrect"), "Error");
                         }
                     }
                     else
                     {
+                        IsBusy = false;
                         ToastService.ShowToastLong(LocalizedStrings.Get("strWithOutConnectedInfo"));
                     }
                 }
             }
             catch (Exception ex)
             {
+                IsBusy = false;
                 await DialogService.ShowMessage(ex.Message, "Error");
             }
             finally

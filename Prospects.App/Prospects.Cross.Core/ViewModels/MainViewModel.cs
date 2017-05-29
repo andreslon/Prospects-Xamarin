@@ -28,15 +28,20 @@ namespace Prospects.Cross.Core.ViewModels
         {
             get { return prospects; }
             set { Set(ref prospects, value); }
-        }
-
+        } 
         public ProspectViewModel SelectedProspect { get; set; }
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
         public IApiService ApiService { get; set; }
         public IFileService FileService { get; set; }
         public INavigationService NavigationService { get; set; }
-
+        public IDialogService DialogService { get; set; } 
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { Set(ref isBusy, value); }
+        }
         private bool _ErrorStatus;
         public bool ErrorStatus
         {
@@ -52,54 +57,68 @@ namespace Prospects.Cross.Core.ViewModels
             set { Set(ref _StatusMessage, value); }
         }
 
-        public MainViewModel(IApiService apiService, IFileService fileService, INavigationService navigationService)
+        public MainViewModel(IApiService apiService, IFileService fileService, INavigationService navigationService, IDialogService dialogService)
         {
             ApiService = apiService;
             FileService = fileService;
             NavigationService = navigationService;
+            DialogService = dialogService;
             User = DependencyContainer.LocatorService.Get<UserViewModel>();
             LoadMenuItems();
         }
         async public void LoadProspects()
         {
-            var apiResponse = await ApiService.GetProspects(User.Token);
-            if (apiResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            try
             {
-                Prospects = new List<ProspectViewModel>();
-                foreach (var prospect in apiResponse.Response)
+                IsBusy = true;
+                var apiResponse = await ApiService.GetProspects(User.Token);
+                if (apiResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    Prospects.Add(new ProspectViewModel
+                    Prospects = new List<ProspectViewModel>();
+                    foreach (var prospect in apiResponse.Response)
                     {
-                        AcceptSearch = prospect.acceptSearch,
-                        Address = prospect.address,
-                        AppointableId = prospect.appointableId,
-                        Callcenter = prospect.callcenter,
-                        CampaignCode = prospect.campaignCode,
-                        CityCode = prospect.cityCode,
-                        CreatedAt = prospect.createdAt,
-                        Disable = prospect.disable,
-                        Id = prospect.id,
-                        Name = prospect.name,
-                        NeighborhoodCode = prospect.neighborhoodCode,
-                        Observation = prospect.observation,
-                        RejectedObservation = prospect.rejectedObservation,
-                        RoleId = prospect.roleId,
-                        SchProspectIdentification = prospect.schProspectIdentification,
-                        SectionCode = prospect.sectionCode,
-                        StatusCd = prospect.statusCd,
-                        Surname = prospect.surname,
-                        Telephone = prospect.telephone,
-                        UpdatedAt = prospect.updatedAt,
-                        UserId = prospect.userId,
-                        Visited = prospect.visited,
-                        ZoneCode = prospect.zoneCode,
-                    });
+                        Prospects.Add(new ProspectViewModel
+                        {
+                            AcceptSearch = prospect.acceptSearch,
+                            Address = prospect.address,
+                            AppointableId = prospect.appointableId,
+                            Callcenter = prospect.callcenter,
+                            CampaignCode = prospect.campaignCode,
+                            CityCode = prospect.cityCode,
+                            CreatedAt = prospect.createdAt,
+                            Disable = prospect.disable,
+                            Id = prospect.id,
+                            Name = prospect.name,
+                            NeighborhoodCode = prospect.neighborhoodCode,
+                            Observation = prospect.observation,
+                            RejectedObservation = prospect.rejectedObservation,
+                            RoleId = prospect.roleId,
+                            SchProspectIdentification = prospect.schProspectIdentification,
+                            SectionCode = prospect.sectionCode,
+                            StatusCd = prospect.statusCd,
+                            Surname = prospect.surname,
+                            Telephone = prospect.telephone,
+                            UpdatedAt = prospect.updatedAt,
+                            UserId = prospect.userId,
+                            Visited = prospect.visited,
+                            ZoneCode = prospect.zoneCode,
+                        });
+                    }
+                }
+                else
+                {
+                    //await App.NavigationPage.DisplayAlert("Ups!", "Ha ocurrido un error obteniendo los prospectos del servidor.", "Aceptar");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                //await App.NavigationPage.DisplayAlert("Ups!", "Ha ocurrido un error obteniendo los prospectos del servidor.", "Aceptar");
+                IsBusy = false;
+                await DialogService.ShowMessage(ex.Message, "Error");
             }
+            finally {
+                IsBusy = false;
+            }
+          
         }
 
         private void LoadMenuItems()

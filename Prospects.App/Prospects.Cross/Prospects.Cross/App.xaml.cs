@@ -59,13 +59,11 @@ namespace Prospects.Cross
         }
 
         async public static void SetPushPage(Page page)
-        {
-            NavigationPage.SetBackButtonTitle(page, "Atrás");
+        { 
             await NavigationPage.PushAsync(page);
         }
         async public static void SetNavigationPage(Page page)
-        {
-            NavigationPage.SetBackButtonTitle(page, "Atrás");
+        { 
             await NavigationPage.PushAsync(page);
         }
         protected override void OnStart()

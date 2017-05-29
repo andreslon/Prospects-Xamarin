@@ -33,8 +33,11 @@ namespace Prospects.Cross.Services
 					case PageTypes.EditProspect:
 						App.SetPushPage(new EditProspectPage());
 						break;
+                    case PageTypes.ProspectDetail:
+                        App.SetPushPage(new ProspectDetailPage());
+                        break;
 
-				}
+                }
 			}
 			catch (Exception ex)
 			{
