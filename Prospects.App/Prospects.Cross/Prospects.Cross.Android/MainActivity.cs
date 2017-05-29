@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Prospects.Cross.Android.Services;
 
 namespace Prospects.Cross.Droid
 {
@@ -20,6 +21,7 @@ namespace Prospects.Cross.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            App.LocatorService = new LocatorService();
             LoadApplication(new App());
         }
     }
