@@ -24,6 +24,7 @@ namespace Prospects.Cross
         public static void SetProspectsPage()
         {
             MasterDetailPage = new MasterDetailPage() { MasterBehavior = MasterBehavior.SplitOnLandscape };
+            MasterDetailPage.BindingContext = DependencyContainer.LocatorService.Get<MainViewModel>();
             NavigationPage = new NavigationPage(new ProspectsPage());
             MasterDetailPage.Master = new MenuPage();
             MasterDetailPage.Detail = NavigationPage;
@@ -39,12 +40,17 @@ namespace Prospects.Cross
         {
             var page = new SplashPage();
             page.BindingContext = DependencyContainer.LocatorService.Get<MainViewModel>();
-            Current.MainPage = page;
-        }
+            NavigationPage = new NavigationPage(page);
+            NavigationPage.SetHasNavigationBar(page, false);
+            Current.MainPage = NavigationPage; 
+        }  
         public static void SetLoginPage()
-        {
+        { 
             var page = new LoginPage();
-            Current.MainPage = page;
+            page.BindingContext = DependencyContainer.LocatorService.Get<MainViewModel>();
+            NavigationPage = new NavigationPage(page);
+            NavigationPage.SetHasNavigationBar(page, false);
+            Current.MainPage = NavigationPage;
         }
         public static void SetDetailPage(Page page)
         {

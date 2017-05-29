@@ -16,6 +16,7 @@ namespace Prospects.Cross.Android.Services
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<UserViewModel>();
             //Cross Services
             SimpleIoc.Default.Register<IApiService, ApiService>();
             SimpleIoc.Default.Register<IDialogService, DialogService>();

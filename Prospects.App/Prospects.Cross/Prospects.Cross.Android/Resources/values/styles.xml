@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
+  <color name="window_background">#ffffff</color>
+  
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
   <!-- Base theme applied no matter what API -->
@@ -16,7 +18,7 @@
     <item name="colorPrimaryDark">#16a085</item>
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
-    <item name="colorAccent">#2c3e50</item>
+    <item name="colorAccent">#16a085</item>
     <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="windowActionModeOverlay">true</item>
@@ -25,6 +27,10 @@
   </style>
 
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#2c3e50</item>
+    <item name="colorAccent">#16a085</item>
+  </style>
+  <style name="MainTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowBackground">@drawable/background_splash</item>
+    <item name="android:windowNoTitle">true</item>
   </style>
 </resources>

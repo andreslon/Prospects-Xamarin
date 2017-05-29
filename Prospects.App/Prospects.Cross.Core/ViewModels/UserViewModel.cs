@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command; 
+﻿using GalaSoft.MvvmLight.Command;
 using Prospects.Cross.Infrastructure;
 using Prospects.Cross.Infrastructure.Interfaces;
 using Prospects.Cross.Infrastructure.Resources;
@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -20,17 +21,32 @@ namespace Prospects.Cross.Core.ViewModels
         public IFileService FileService { get; set; }
         public IApiService ApiService { get; set; }
         public IToastService ToastService { get; set; }
-        public UserViewModel()
+        public INavigationService NavigationService { get; set; }
+        public UserViewModel(INetworkService networkService, IDialogService dialogService, IFileService fileService, IApiService apiService, IToastService toastService, INavigationService navigationService)
         {
-
+            NetworkService = networkService;
+            DialogService = dialogService;
+            FileService = fileService;
+            ApiService = apiService;
+            ToastService = toastService;
+            NavigationService = navigationService;
         }
-        #region attributes
+        #region attributes 
+        private bool isBusy;
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { Set(ref isBusy, value); }
+        }
         private bool holdSession;
+
         public bool HoldSession
         {
             get { return holdSession; }
             set { Set(ref holdSession, value); }
         }
+
         private string email;
         public string Email
         {
@@ -50,44 +66,28 @@ namespace Prospects.Cross.Core.ViewModels
         public ICommand LoginCommand { get { return new RelayCommand(Login); } }
         async private void Login()
         {
-            try
-            {
-                //ProgressDialogService.Show();
-                await LoginServer();
-            }
-            catch (Exception)
-            {
-                //Error
-            }
-            finally
-            {
-                //ProgressDialogService.Hide();
-            }
-        }
-        #endregion
 
-        async public Task LoginServer()
-        {
-            var main = DependencyContainer.LocatorService.Get<MainViewModel>();
             try
             {
+                IsBusy = true;
+                var main = DependencyContainer.LocatorService.Get<MainViewModel>();
                 Validate();
                 if (IsValid)
                 {
                     if (NetworkService.IsNetworkAvailable)
                     {
-                        //ProgressDialogService.Show();
                         var apiResponse = await ApiService.Login(this.Email, this.Password);
                         if (apiResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             if (apiResponse.Response.success)
                             {
                                 this.Token = apiResponse.Response.authToken;
+                                await NavigationService.Navigate(Infrastructure.Enumerations.PageTypes.Home);
                             }
                         }
                         else
                         {
-
+                            await DialogService.ShowMessage(LocalizedStrings.Get("strUserIncorrect"), "Error");
                         }
                     }
                     else
@@ -98,34 +98,55 @@ namespace Prospects.Cross.Core.ViewModels
             }
             catch (Exception ex)
             {
-                await DialogService.ShowMessage(ex.Message, LocalizedStrings.Get("strError"));
+                await DialogService.ShowMessage(ex.Message, "Error");
             }
             finally
             {
-                //ProgressDialogService.Hide();
+                IsBusy = false;
             }
         }
+        #endregion
+
 
 
         protected override void ValidateSelf()
         {
-            var isValid = true;
+            var IsValid = true;
             var main = DependencyContainer.LocatorService.Get<MainViewModel>();
-            if (string.IsNullOrEmpty(this.email))
+            if (string.IsNullOrEmpty(this.Email))
             {
                 ValidationErrors["Email"] = LocalizedStrings.Get("strEmailRequired");
-                isValid = false;
+                IsValid = false;
             }
             if (string.IsNullOrEmpty(this.Password))
             {
                 ValidationErrors["Password"] = LocalizedStrings.Get("strPassRequired");
-                isValid = false;
+                IsValid = false;
             }
 
-            if (!isValid)
+            IsValid = IsValidEmail(this.Email);
+            if (!IsValid)
             {
-                DialogService.ShowMessage(LocalizedStrings.Get("strFieldRequired"), "");
+                ValidationErrors["Email"] = LocalizedStrings.Get("strEmailFormatIncorrect");
             }
+
+            if (!IsValid)
+            {
+                DialogService.ShowMessage(LocalizedStrings.Get("strFieldsRequired"), "Error");
+            }
+        }
+
+        public bool IsValidEmail(string strIn)
+        {
+            try
+            {
+                return Regex.IsMatch(strIn, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

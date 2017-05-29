@@ -15,7 +15,7 @@ namespace Prospects.Cross.Core.Services
 {
     public class ApiService : IApiService
     {
-         
+
         public IHttpClientService HttpClientService { get; set; }
         public IJsonService JsonService { get; set; }
 
@@ -31,17 +31,10 @@ namespace Prospects.Cross.Core.Services
             try
             {
                 HttpResponseMessage result = await HttpClientService.GetAsync($"{apiUri}application/login?email={email}&password={password}");
-                if (result.IsSuccessStatusCode)
-                {
-                    var serializedResponse = await JsonService.GetSerializedResponse<AuthResponse>(result);
-                    var response = new BaseResponse<AuthResponse>() { Response = serializedResponse };
-                    response.HttpResponse = result;
-                    return response;
-                }
-                else
-                {
-                    return new BaseResponse<AuthResponse>() { HttpResponse = result };
-                }
+                var serializedResponse = await JsonService.GetSerializedResponse<AuthResponse>(result);
+                var response = new BaseResponse<AuthResponse>() { Response = serializedResponse };
+                response.HttpResponse = result;
+                return response;
             }
             catch (Exception ex)
             {
@@ -53,7 +46,7 @@ namespace Prospects.Cross.Core.Services
             try
             {
                 Dictionary<string, string> headers = new Dictionary<string, string>();
-                headers.Add("TOKEN", token); 
+                headers.Add("TOKEN", token);
                 HttpResponseMessage result = await HttpClientService.GetAsync($"{apiUri}sch/prospects.json", headers);
                 if (result.IsSuccessStatusCode)
                 {

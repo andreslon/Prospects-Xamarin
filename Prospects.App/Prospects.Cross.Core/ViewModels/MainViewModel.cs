@@ -15,12 +15,15 @@ using GalaSoft.MvvmLight.Command;
 namespace Prospects.Cross.Core.ViewModels
 {
     public class MainViewModel : ViewModelBase
-    {
-        public UserViewModel User { get; set; }
+    { 
 
+        private UserViewModel user; 
+        public UserViewModel User
+        {
+            get { return user; }
+            set { Set(ref user, value); }
+        } 
         private List<ProspectViewModel> prospects;
-
-
         public List<ProspectViewModel> Prospects
         {
             get { return prospects; }
@@ -54,6 +57,7 @@ namespace Prospects.Cross.Core.ViewModels
             ApiService = apiService;
             FileService = fileService;
             NavigationService = navigationService;
+            User = DependencyContainer.LocatorService.Get<UserViewModel>();
             LoadMenuItems();
         }
         async public void LoadProspects()
@@ -105,13 +109,13 @@ namespace Prospects.Cross.Core.ViewModels
             {
                 Name = LocalizedStrings.Get("strProspectsList"),
                 Type = PageTypes.Home,
-                Icon = "ic_home_white_24dp"
+                Icon = "ic_action_dashboard"
             });
             MenuItems.Add(new MenuItemViewModel()
             {
                 Name = LocalizedStrings.Get("strSignOut"),
                 Type = PageTypes.SignOut,
-                Icon = "ic_star_rate_white_18dp"
+                Icon = "ic_action_exit_to_app"
             });
 
         }

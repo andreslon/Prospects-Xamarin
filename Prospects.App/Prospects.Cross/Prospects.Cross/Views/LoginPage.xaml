@@ -1,10 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prospects.Cross.Views.LoginPage">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Prospects.Cross.Views.LoginPage"
+             xmlns:controls="clr-namespace:Prospects.Cross.Controls;assembly=Prospects.Cross"
+             BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
+        <Grid>
+            <Grid BindingContext="{Binding User}">
+
+                <ScrollView Grid.Row="0" >
+
+                    <StackLayout Padding="0" Spacing="0">
+                        <StackLayout   Padding="20,30,20,0"   >
+                            <Image  Source="logo_satrack" HeightRequest="200"  ></Image>
+                        </StackLayout>
+
+                        <Grid  Padding="20,0,20,20">
+                            <StackLayout  Padding="0,10">
+                                <controls:ExtendedEntry   Text="{Binding Email, Mode=TwoWay}"    Placeholder="Email" Icon="ic_action_ic_email_black_24px"  />
+                                <Label TextColor="{StaticResource ValidationColor}" Text="{Binding ValidationErrors[Email]}"
+                      IsVisible="{Binding ValidationErrors[Email], Converter={StaticResource VoidToVisibilityConverter}}"/>
+
+                                <controls:ExtendedEntry   Text="{Binding Password, Mode=TwoWay}"  IsPassword="True"  Placeholder="Password"   Icon="ic_action_vpn_key" />
+                                <Label TextColor="{StaticResource ValidationColor}" Text="{Binding ValidationErrors[Password]}"
+                      IsVisible="{Binding ValidationErrors[Password], Converter={StaticResource VoidToVisibilityConverter}}"/>
+
+
+                                <Grid Padding="0,10" >
+                                    <controls:ExtendedButton  Command="{Binding LoginCommand}"
+                                                              IsVisible="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"
+                                                              BackgroundColor="{StaticResource ThemeColor}"
+                                                              TextColor="{StaticResource WhiteColor}"
+                                                              Text="Log In"></controls:ExtendedButton>
+                                    <ActivityIndicator Color="{StaticResource ThemeColor}" IsVisible="{Binding IsBusy}" IsRunning="true" />
+
+                                </Grid>
+                                <Grid Padding="0,10" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <controls:ExtendedCheck HorizontalOptions="Center" Checked="{Binding HoldSession}" Text="Remember me"></controls:ExtendedCheck>
+                                </Grid>
+
+                                <Grid Padding="0,10" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image  Source="powered_Satrack" HeightRequest="20"   ></Image>
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+
+
+                </ScrollView>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

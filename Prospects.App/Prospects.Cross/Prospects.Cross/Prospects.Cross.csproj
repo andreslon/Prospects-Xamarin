@@ -38,6 +38,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ExtendedCheck.cs" />
+    <Compile Include="Controls\ExtendedEntry.cs" />
+    <Compile Include="Controls\ExtendedListView.cs" />
+    <Compile Include="Controls\ExtendedPicker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Views\EditProspectPage.xaml.cs">
@@ -132,10 +136,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Prospects.Cross.Core\Prospects.Cross.Core.csproj">
       <Project>{8c11cad8-5045-406a-9a0a-cfb689c1bb8c}</Project>

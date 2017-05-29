@@ -120,28 +120,40 @@
   <data name="ApiUri" xml:space="preserve">
     <value>http://directotesting.igapps.co/</value>
   </data>
+  <data name="strEmailFormatIncorrect" xml:space="preserve">
+    <value>Incorrect email format (xxxx@xxx.com)</value>
+  </data>
   <data name="strEmailRequired" xml:space="preserve">
-    <value>strEmailRequired</value>
+    <value>Email required</value>
   </data>
   <data name="strError" xml:space="preserve">
-    <value>strError</value>
+    <value>Sorry, an error has occurred.</value>
   </data>
-  <data name="strFieldRequired" xml:space="preserve">
-    <value>strFieldRequired</value>
+  <data name="strFieldsRequired" xml:space="preserve">
+    <value>Some fields are required, please complete to continue.</value>
   </data>
   <data name="strHome" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="strLoadingData" xml:space="preserve">
+    <value>Loading Data</value>
+  </data>
+  <data name="strLoadingUSer" xml:space="preserve">
+    <value>Loading User Data</value>
+  </data>
   <data name="strPassRequired" xml:space="preserve">
-    <value>strPassRequired</value>
+    <value>Password Required</value>
   </data>
   <data name="strProspectsList" xml:space="preserve">
-    <value>Lista de prospectos</value>
+    <value>Prospects List</value>
   </data>
   <data name="strSignOut" xml:space="preserve">
-    <value>Cerrar sesión</value>
+    <value>Sign Out</value>
+  </data>
+  <data name="strUserIncorrect" xml:space="preserve">
+    <value>Password or Email incorrect</value>
   </data>
   <data name="strWithOutConnectedInfo" xml:space="preserve">
-    <value>strWithOutConnectedInfo</value>
+    <value>No internet connection</value>
   </data>
 </root>

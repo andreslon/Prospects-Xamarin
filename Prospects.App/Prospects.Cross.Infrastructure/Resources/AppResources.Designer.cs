@@ -71,7 +71,16 @@ namespace Prospects.Cross.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strEmailRequired.
+        ///   Looks up a localized string similar to Incorrect email format (xxxx@xxx.com).
+        /// </summary>
+        internal static string strEmailFormatIncorrect {
+            get {
+                return ResourceManager.GetString("strEmailFormatIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email required.
         /// </summary>
         internal static string strEmailRequired {
             get {
@@ -80,7 +89,7 @@ namespace Prospects.Cross.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strError.
+        ///   Looks up a localized string similar to Sorry, an error has occurred..
         /// </summary>
         internal static string strError {
             get {
@@ -89,11 +98,11 @@ namespace Prospects.Cross.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strFieldRequired.
+        ///   Looks up a localized string similar to Some fields are required, please complete to continue..
         /// </summary>
-        internal static string strFieldRequired {
+        internal static string strFieldsRequired {
             get {
-                return ResourceManager.GetString("strFieldRequired", resourceCulture);
+                return ResourceManager.GetString("strFieldsRequired", resourceCulture);
             }
         }
         
@@ -107,7 +116,25 @@ namespace Prospects.Cross.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strPassRequired.
+        ///   Looks up a localized string similar to Loading Data.
+        /// </summary>
+        internal static string strLoadingData {
+            get {
+                return ResourceManager.GetString("strLoadingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading User Data.
+        /// </summary>
+        internal static string strLoadingUSer {
+            get {
+                return ResourceManager.GetString("strLoadingUSer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Required.
         /// </summary>
         internal static string strPassRequired {
             get {
@@ -116,7 +143,7 @@ namespace Prospects.Cross.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lista de prospectos.
+        ///   Looks up a localized string similar to Prospects List.
         /// </summary>
         internal static string strProspectsList {
             get {
@@ -125,7 +152,7 @@ namespace Prospects.Cross.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cerrar sesión.
+        ///   Looks up a localized string similar to Sign Out.
         /// </summary>
         internal static string strSignOut {
             get {
@@ -134,7 +161,16 @@ namespace Prospects.Cross.Infrastructure.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strWithOutConnectedInfo.
+        ///   Looks up a localized string similar to Password or Email incorrect.
+        /// </summary>
+        internal static string strUserIncorrect {
+            get {
+                return ResourceManager.GetString("strUserIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No internet connection.
         /// </summary>
         internal static string strWithOutConnectedInfo {
             get {
