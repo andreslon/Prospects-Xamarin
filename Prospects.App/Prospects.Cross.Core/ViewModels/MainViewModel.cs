@@ -72,44 +72,31 @@ namespace Prospects.Cross.Core.ViewModels
             try
             {
                 IsBusy = true;
-                var apiResponse = await ApiService.GetProspects(User.Token);
-                if (apiResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    Prospects = new List<ProspectViewModel>();
-                    foreach (var prospect in apiResponse.Response)
+
+                if (await FileService.Exist("ProspectsData"))
+                { 
+                    var ProspectsData = await FileService.LoadAsync<List<ProspectResponse>>("ProspectsData");
+                    if (ProspectsData != null)
                     {
-                        Prospects.Add(new ProspectViewModel
-                        {
-                            AcceptSearch = prospect.acceptSearch,
-                            Address = prospect.address,
-                            AppointableId = prospect.appointableId,
-                            Callcenter = prospect.callcenter,
-                            CampaignCode = prospect.campaignCode,
-                            CityCode = prospect.cityCode,
-                            CreatedAt = prospect.createdAt,
-                            Disable = prospect.disable,
-                            Id = prospect.id,
-                            Name = prospect.name,
-                            NeighborhoodCode = prospect.neighborhoodCode,
-                            Observation = prospect.observation,
-                            RejectedObservation = prospect.rejectedObservation,
-                            RoleId = prospect.roleId,
-                            SchProspectIdentification = prospect.schProspectIdentification,
-                            SectionCode = prospect.sectionCode,
-                            StatusCd = prospect.statusCd,
-                            Surname = prospect.surname,
-                            Telephone = prospect.telephone,
-                            UpdatedAt = prospect.updatedAt,
-                            UserId = prospect.userId,
-                            Visited = prospect.visited,
-                            ZoneCode = prospect.zoneCode,
-                        });
+                        FillProspects(ProspectsData); 
                     }
                 }
                 else
                 {
-                    //await App.NavigationPage.DisplayAlert("Ups!", "Ha ocurrido un error obteniendo los prospectos del servidor.", "Aceptar");
-                }
+                    var apiResponse = await ApiService.GetProspects(User.Token);
+                    if (apiResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        FillProspects(apiResponse.Response);
+                        if (user.HoldSession)
+                        {
+                            await FileService.SaveAsync("ProspectsData", apiResponse.Response);
+                        }
+                    }
+                    else
+                    {
+                        await DialogService.ShowMessage(LocalizedStrings.Get("strError"), "Error");
+                    }
+                } 
             }
             catch (Exception ex)
             {
@@ -121,6 +108,40 @@ namespace Prospects.Cross.Core.ViewModels
                 IsBusy = false;
             }
 
+        }
+
+        private void FillProspects(List<ProspectResponse> prospectsResponse)
+        {
+            Prospects = new List<ProspectViewModel>();
+            foreach (var prospect in prospectsResponse)
+            {
+                Prospects.Add(new ProspectViewModel
+                {
+                    AcceptSearch = prospect.acceptSearch,
+                    Address = prospect.address,
+                    AppointableId = prospect.appointableId,
+                    Callcenter = prospect.callcenter,
+                    CampaignCode = prospect.campaignCode,
+                    CityCode = prospect.cityCode,
+                    CreatedAt = prospect.createdAt,
+                    Disable = prospect.disable,
+                    Id = prospect.id,
+                    Name = prospect.name,
+                    NeighborhoodCode = prospect.neighborhoodCode,
+                    Observation = prospect.observation,
+                    RejectedObservation = prospect.rejectedObservation,
+                    RoleId = prospect.roleId,
+                    SchProspectIdentification = prospect.schProspectIdentification,
+                    SectionCode = prospect.sectionCode,
+                    StatusCd = prospect.statusCd,
+                    Surname = prospect.surname,
+                    Telephone = prospect.telephone,
+                    UpdatedAt = prospect.updatedAt,
+                    UserId = prospect.userId,
+                    Visited = prospect.visited,
+                    ZoneCode = prospect.zoneCode,
+                });
+            }
         }
 
         private void LoadMenuItems()
@@ -183,7 +204,8 @@ namespace Prospects.Cross.Core.ViewModels
             {
                 case PageTypes.SignOut:
                     User.Clear(); 
-                    await FileService.Delete("UserData"); 
+                    await FileService.Delete("UserData");
+                    await FileService.Delete("ProspectsData"); 
                     await NavigationService.Navigate(PageTypes.Login);
                     break;
                 case PageTypes.Home:
