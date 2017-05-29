@@ -30,7 +30,10 @@ namespace Prospects.Cross.Services
 					case PageTypes.Home:
 						App.SetProspectsPage();
 						break;
-					case PageTypes.EditProspect:
+                    case PageTypes.Log:
+                        App.SetPushPage(new LogPage());
+                        break;
+                    case PageTypes.EditProspect:
 						App.SetPushPage(new EditProspectPage());
 						break;
                     case PageTypes.ProspectDetail:

@@ -11,11 +11,19 @@ using Xamarin.Forms.Xaml;
 namespace Prospects.Cross.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditProspectPage : ContentPage
+    public partial class LogPage : ContentPage
     {
-        public EditProspectPage()
+        public LogPage()
         {
             InitializeComponent();
-        } 
+        }
+        protected override void OnAppearing()
+        {
+            if (this.BindingContext != null)
+            {
+                MainViewModel main = (MainViewModel)this.BindingContext;
+                main.LoadLog();
+            }
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Log"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             x:Class="Prospects.Cross.Views.LogPage">
+    <ContentPage.Content>
+        <ListView ItemsSource="{Binding Log}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="5">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Prospect "></Label>
+                                <Label Text="{Binding id}"  FontAttributes="Bold" />
+                                <Label Text="modified at "></Label>
+                                <Label Text="{Binding UpdatedAt}"  />  
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

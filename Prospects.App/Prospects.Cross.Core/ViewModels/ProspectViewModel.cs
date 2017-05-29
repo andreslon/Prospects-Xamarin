@@ -33,6 +33,8 @@ namespace Prospects.Cross.Core.ViewModels
 
         private void Edit()
         {
+            var main = DependencyContainer.LocatorService.Get<MainViewModel>();
+            main.ProspectEdited = main.CloneProspect(this);
             NavigationService.Navigate(Infrastructure.Enumerations.PageTypes.EditProspect);
         }
 
@@ -40,7 +42,10 @@ namespace Prospects.Cross.Core.ViewModels
 
         private void Save()
         {
-
+            var main = DependencyContainer.LocatorService.Get<MainViewModel>();
+            main.UpdateProspect(this);
+            NavigationService.GoBack();
+          
         }
         #endregion
 

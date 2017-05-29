@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\INavigationService.cs" />
     <Compile Include="Interfaces\INetworkService.cs" />
     <Compile Include="Interfaces\IToastService.cs" />
+    <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Responses\AuthResponse.cs" />
     <Compile Include="Models\Responses\BaseResponse.cs" />
     <Compile Include="Models\Responses\ProspectResponse.cs" />

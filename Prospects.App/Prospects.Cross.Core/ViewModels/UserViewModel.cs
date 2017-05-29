@@ -141,17 +141,20 @@ namespace Prospects.Cross.Core.ViewModels
                 ValidationErrors["Email"] = LocalizedStrings.Get("strEmailRequired");
                 IsValid = false;
             }
+            else {
+                IsValid = IsValidEmail(this.Email);
+                if (!IsValid)
+                {
+                    ValidationErrors["Email"] = LocalizedStrings.Get("strEmailFormatIncorrect");
+                }
+            }
             if (string.IsNullOrEmpty(this.Password))
             {
                 ValidationErrors["Password"] = LocalizedStrings.Get("strPassRequired");
                 IsValid = false;
             }
 
-            IsValid = IsValidEmail(this.Email);
-            if (!IsValid)
-            {
-                ValidationErrors["Email"] = LocalizedStrings.Get("strEmailFormatIncorrect");
-            }
+            
 
             if (!IsValid)
             {

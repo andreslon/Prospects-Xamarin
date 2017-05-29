@@ -7,6 +7,7 @@
         SignOut,
         Home,
         EditProspect,
-        ProspectDetail
+        ProspectDetail,
+        Log
     }
 }
